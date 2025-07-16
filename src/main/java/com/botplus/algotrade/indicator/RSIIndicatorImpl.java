@@ -4,8 +4,15 @@ import org.ta4j.core.BarSeries;
 import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 
-public class RSIIndicatorImpl extends ConfigurableIndicator {
-    public RSIIndicatorImpl() {}
+import com.botplus.algotrade.base.TechnicalIndicator;
+
+public class RSIIndicatorImpl implements TechnicalIndicator {
+
+    private final int period;
+
+    public RSIIndicatorImpl(int period) {
+        this.period = period;
+    }
 
     @Override
     public String getName() {
@@ -14,12 +21,25 @@ public class RSIIndicatorImpl extends ConfigurableIndicator {
 
     @Override
     public Double[] compute(BarSeries series) {
-        RSIIndicator rsi = new RSIIndicator(new ClosePriceIndicator(series), period);
-        Double[] result = new Double[series.getBarCount()];
-        for (int i = 0; i < result.length; i++) {
+        ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+        RSIIndicator rsi = new RSIIndicator(closePrice, period);
+        int barCount = series.getBarCount();
+
+        Double[] result = new Double[barCount];
+        for (int i = 0; i < barCount; i++) {
             result[i] = rsi.getValue(i).doubleValue();
         }
+
         return result;
     }
-}
 
+    @Override
+    public Double calculateLatest(BarSeries series) {
+        int endIndex = series.getBarCount() - 1;
+        if (endIndex < period) return null;
+
+        ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+        RSIIndicator rsi = new RSIIndicator(closePrice, period);
+        return rsi.getValue(endIndex).doubleValue();
+    }
+}

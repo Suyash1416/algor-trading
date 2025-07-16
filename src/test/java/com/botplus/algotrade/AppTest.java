@@ -1,4 +1,4 @@
-package com.botplus.algotrade;
+ackage com.botplus.algotrade;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -37,20 +37,16 @@ public class SMAIndicatorImpl implements TechnicalIndicator {
         }
 
         SMAIndicator sma = new SMAIndicator(new ClosePriceIndicator(series), period);
+        
         Double[] result = new Double[series.getBarCount()];
+        
         for (int i = 0; i < series.getBarCount(); i++) {
             result[i] = sma.getValue(i).doubleValue();
         }
+        
         return result;
     }
 
-    // ✅ Implement the configuration method
-    @Override
-    public void configure(Map<String, Object> parameters) {
-        if (parameters.containsKey("period")) {
-            this.period = (int) parameters.get("period");
-        } else {
-            throw new IllegalArgumentException("Missing required parameter: period");
-        }
-    }
+    
+   
 }

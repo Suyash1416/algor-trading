@@ -17,20 +17,26 @@ public class StockDataParser {
      */
     public static StockDataRow readRow(Sheet sheet, int rowIndex) {
         Row row = sheet.getRow(rowIndex);
-        if (row == null) return null;
+        
+        if (row == null) 
+        	{
+        	System.out.println("Row is null");
+        	return null;
+        	}
 
         try {
             LocalDate date = row.getCell(findColumnIndex(sheet, "Date"))
                     .getLocalDateTimeCellValue().toLocalDate();
             String code = row.getCell(findColumnIndex(sheet, "SYMBOL")).getStringCellValue();
-            double open = parseDouble(row.getCell(findColumnIndex(sheet, "OPEN_PRICE")));
-            double high = parseDouble(row.getCell(findColumnIndex(sheet, "HIGH_PRICE")));
-            double low = parseDouble(row.getCell(findColumnIndex(sheet, "LOW_PRICE")));
-            double close = parseDouble(row.getCell(findColumnIndex(sheet, "CLOSE_PRICE")));
+            double open = parseDouble(row.getCell(findColumnIndex(sheet, "OPEN")));
+            double high = parseDouble(row.getCell(findColumnIndex(sheet, "HIGH")));
+            double low = parseDouble(row.getCell(findColumnIndex(sheet, "LOW")));
+            double close = parseDouble(row.getCell(findColumnIndex(sheet, "CLOSE")));
             double volume = parseDouble(row.getCell(findColumnIndex(sheet, "NET_TRDQTY")));
 
             return new StockDataRow(date, open, high, low, close, volume, code, rowIndex);
         } catch (Exception e) {
+        	e.printStackTrace();
             return null; // skip row if data is invalid
         }
     }

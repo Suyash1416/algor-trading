@@ -1,0 +1,84 @@
+[
+	{
+	  "strategyName": "Golden Cross",
+	  
+	  "conditions": [
+	    {
+	      "type": "cross_above",
+	      "indicator1": "SMA-50",
+	      "indicator2": "SMA-200",
+	      "action": "BUY"
+	    }
+	  ]
+	},
+	
+	
+	{
+	  "strategyName": "RSI Oversold Bounce",
+	  
+	  "conditions": [
+	    {
+	      "type": "cross_above",
+	      "indicator1": "RSI-14",
+	      "threshold": 30,
+	      "action": "BUY"
+	    }
+	  ]
+	},
+	
+	{
+	  "strategyName": "Golden Cross + RSI Confirm",
+	  
+	  "conditions": [
+	    {
+	      "type": "cross_above",
+	      "indicator1": "SMA-50",
+	      "indicator2": "SMA-200",
+	      "action": "BUY"
+	    },
+	    {
+	      "type": "greater_than",
+	      "indicator1": "RSI-14",
+	      "threshold": 50,
+	      "action": "BUY"
+	    }
+	  ]
+	},
+	
+	{
+	  "strategyName": "MACD Bullish Crossover",
+	 
+	  "conditions": [
+	    {
+	      "type": "cross_above",
+	      "indicator1": "MACD-Line",
+	      "indicator2": "MACD-Signal",
+	      "action": "BUY"
+	    }
+	  ]
+	},
+	
+	{
+	  "strategyName": "Bollinger Band Breakout",
+	 
+	  "conditions": [
+	    {
+	      "type": "less_than",
+	      "indicator1": "BB-Width",
+	      "threshold": 5.0,
+	      "action": "WAIT"
+	    },
+	    {
+	      "type": "greater_than",
+	      "indicator1": "Close",
+	      "indicator2": "BB-Upper",
+	      "action": "BUY"
+	    }
+	  ]
+	}
+
+
+
+
+
+]
